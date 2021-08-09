@@ -28,7 +28,9 @@ class LikeController extends Controller
     public function store(Request $request)
     {
         $item = Like::create($request->all());
+        $count = $item->users()->count();
         return response()->json([
+            'count' => $count,
             'data' => $item
         ], 201);
     }
@@ -47,8 +49,7 @@ class LikeController extends Controller
             ], 200);
         } else {
             return response()->json([
-                'message_id' => 'Not found',
-                'user_id' => 'Not found'
+                'message' => 'Not found',
             ], 404);
         }
     }
@@ -62,19 +63,17 @@ class LikeController extends Controller
     public function update(Request $request, Like $like)
     {
         $update = [
-            'message_id' => $request->message,
-            'user_id' => $request->url
+            'message' => $request->message,
+            'url' => $request->url
         ];
         $item = Like::where('id', $like->id)->update($update);
         if ($item) {
             return response()->json([
-                'message_id' => 'Updated successfully',
-                'user_id' => 'Updated successfully'
+                'message' => 'Updated successfully',
             ], 200);
         } else {
             return response()->json([
-                'message_id' => 'Not found',
-                'user_id' => 'Not found'
+                'message' => 'Not found',
             ], 404);
         }
     }
@@ -87,15 +86,15 @@ class LikeController extends Controller
     public function destroy(Like $like)
     {
         $item = Like::where('id', $like->id)->delete();
+        $count = $item->users()->count();
         if ($item) {
             return response()->json([
-                'message_id' => 'Deleted successfully',
-                'user_id' => 'Deleted successfully',
+                'message' => 'Deleted successfully',
+                'count' => $count,
             ], 200);
         } else {
             return response()->json([
-                'message_id' => 'Not found',
-                'user_id' => 'Not found'
+                'message' => 'Not found',
             ], 404);
         }
     }
