@@ -47,7 +47,8 @@ class LikeController extends Controller
             ], 200);
         } else {
             return response()->json([
-                'message' => 'Not found',
+                'message_id' => 'Not found',
+                'user_id' => 'Not found'
             ], 404);
         }
     }
@@ -61,17 +62,19 @@ class LikeController extends Controller
     public function update(Request $request, Like $like)
     {
         $update = [
-            'message' => $request->message,
-            'url' => $request->url
+            'message_id' => $request->message,
+            'user_id' => $request->url
         ];
         $item = Like::where('id', $like->id)->update($update);
         if ($item) {
             return response()->json([
-                'message' => 'Updated successfully',
+                'message_id' => 'Updated successfully',
+                'user_id' => 'Updated successfully'
             ], 200);
         } else {
             return response()->json([
-                'message' => 'Not found',
+                'message_id' => 'Not found',
+                'user_id' => 'Not found'
             ], 404);
         }
     }
@@ -86,11 +89,13 @@ class LikeController extends Controller
         $item = Like::where('id', $like->id)->delete();
         if ($item) {
             return response()->json([
-                'message' => 'Deleted successfully',
+                'message_id' => 'Deleted successfully',
+                'user_id' => 'Deleted successfully',
             ], 200);
         } else {
             return response()->json([
-                'message' => 'Not found',
+                'message_id' => 'Not found',
+                'user_id' => 'Not found'
             ], 404);
         }
     }
