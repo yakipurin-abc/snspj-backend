@@ -13,6 +13,7 @@ class Like extends Model
 
     public static $rules = array(
         'user_id' => 'required',
-        'message_id' => 'required'
+        'rest_id' => 'required'
     );
+
 }

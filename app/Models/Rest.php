@@ -15,4 +15,8 @@ class Rest extends Model
         'message' => 'required',
         'user' => 'required'
     );
+
+    public function likes(){
+        return $this->hasMany('App\Models\Like');
+    }
 }

@@ -28,8 +28,9 @@ class LikeController extends Controller
        public function store(Request $request)
     {
         $item = Like::create($request->all());
+        $likes = Like::all();
         return response()->json([
-            'data' => $item
+            'data' => $item,
         ], 201);
     }
     /**
@@ -83,7 +84,7 @@ class LikeController extends Controller
      */
     public function destroy(Like $like)
     {
-        $item = Like::where('message_id', $like->message_id)->where('user_id', $like->user_id)->delete();
+        $item = Like::where('rest_id', $like->rest_id)->where('user_id', $like->user_id)->delete();
         if ($item) {
             return response()->json([
                 'message' => 'Deleted successfully',
@@ -94,9 +95,9 @@ class LikeController extends Controller
             ], 404);
         }
     }
-    public function count($message_id)
+    public function count($rest_id)
     {
-        $count = Like::where('message_id', $message_id)->count();
+        $count = Like::where('rest_id', $rest_id)->count();
         if ($count) {
             return response()->json([
                 'count' => $count,
