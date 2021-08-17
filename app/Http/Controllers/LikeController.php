@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Rest;
 use App\Models\Like;
 use Illuminate\Http\Request;
 
@@ -15,8 +15,10 @@ class LikeController extends Controller
     public function index()
     {
         $items = Like::all();
+        $rest = Rest::with('likes')->get();
         return response()->json([
-            'data' => $items
+            'data' => $items,
+            'rest' => $rest,
         ], 200);
     }
     /**
@@ -28,7 +30,7 @@ class LikeController extends Controller
        public function store(Request $request)
     {
         $item = Like::create($request->all());
-        $likes = Like::all();
+        
         return response()->json([
             'data' => $item,
         ], 201);
@@ -42,6 +44,7 @@ class LikeController extends Controller
     public function show(Like $like)
     {
         $item = Like::find($like);
+
         if ($item) {
             return response()->json([
                 'data' => $item
