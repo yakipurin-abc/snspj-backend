@@ -29,6 +29,7 @@ class CreateRestsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('likes');
         Schema::dropIfExists('rests');
     }
 }

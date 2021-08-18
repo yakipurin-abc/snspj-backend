@@ -12,9 +12,10 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $items = Comment::all();
+        $comments = Comment::find();
         return response()->json([
             'data' => $items
         ], 200);
