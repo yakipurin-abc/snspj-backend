@@ -19,6 +19,7 @@ class CreateRestsTable extends Migration
             $table->string('user');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
+            $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
