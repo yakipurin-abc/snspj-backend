@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory;
-    protected $guarded = array('id');
+    protected $fillable = ['id', 'name'];
     protected $table = 'users';
 
     public static $rules = array(
