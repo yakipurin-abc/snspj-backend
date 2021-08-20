@@ -17,9 +17,11 @@ class CreateRestsTable extends Migration
             $table->id();
             $table->string('message');
             $table->string('user');
+            $table->string('user_id');
+            $table->integer('count')->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
-            $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

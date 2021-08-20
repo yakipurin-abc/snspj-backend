@@ -15,8 +15,13 @@ class RestController extends Controller
     public function index()
     {
         $items = Rest::all();
+        foreach($items as $item) {
+            $item->count = $item->likes()->count();
+            $item->save;
+        }
         return response()->json([
-            'data' => $items
+            'data' => $items,
+            'like' => $item,
         ], 200);
     }
     /**

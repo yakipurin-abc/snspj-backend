@@ -12,7 +12,7 @@ class Like extends Model
     protected $table = 'likes';
 
     public static $rules = array(
-        'user' => 'required',
+        'user_id' => 'required',
         'rest_id' => 'required'
     );
 

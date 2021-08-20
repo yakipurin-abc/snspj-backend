@@ -9,11 +9,13 @@ class Rest extends Model
 {
     use HasFactory;
     protected $guarded = array('id');
+    
     protected $table = 'rests';
 
     public static $rules = array(
         'message' => 'required',
-        'user' => 'required'
+        'user' => 'required',
+        'user_id' => 'required'
     );
 
     public function likes(){
