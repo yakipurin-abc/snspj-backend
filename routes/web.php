@@ -17,5 +17,3 @@ use App\Http\Controllers\CommentController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/search', [CommentController::class, 'search']);
-Route::get('/count', [LikeController::class, 'count']);

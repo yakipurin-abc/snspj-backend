@@ -89,9 +89,9 @@ class LikeController extends Controller
      * @param  \App\Models\Like  $like
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Like $like)
+    public function destroy(Request $request)
     {
-        $item = Like::where('rest_id', $like->rest_id)->where('user_id', $like->user_id)->delete();
+        $item = Like::where('rest_id', $request->rest_id)->where('user_id', $request->user_id)->delete();
         if ($item) {
             return response()->json([
                 'message' => 'Deleted successfully',
@@ -99,19 +99,6 @@ class LikeController extends Controller
         } else {
             return response()->json([
                 'message' => 'Not found',
-            ], 404);
-        }
-    }
-    public function count($rest_id)
-    {
-        $count = Like::where('rest_id', $rest_id)->count();
-        if ($count) {
-            return response()->json([
-                'count' => $count,
-            ], 200);
-        } else {
-            return response()->json([
-                'count' => 'Not found',
             ], 404);
         }
     }

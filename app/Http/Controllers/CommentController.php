@@ -15,7 +15,7 @@ class CommentController extends Controller
     public function index(Request $request)
     {
         $items = Comment::all();
-        $comments = Comment::find();
+        $comments = Comment::where('message_id', $request->message_id);
         return response()->json([
             'data' => $items
         ], 200);
@@ -99,23 +99,6 @@ class CommentController extends Controller
                 'comment' => 'Updated successfully',
                 'user' => 'Updated successfully',
                 'message_id' => 'Updated successfully',
-            ], 200);
-        } else {
-            return response()->json([
-                'comment' => 'Not found',
-                'user' => 'Not found',
-                'message_id' => 'Not found',
-            ], 404);
-        }
-    }
-    public function search(Request $request)
-    {
-        $item = Comment::where('message_id', $request->input('paramsId'))->get();
-        if ($item) {
-            return response()->json([
-                'comment' => 'search successfully',
-                'user' => 'search successfully',
-                'message_id' => 'search successfully',
             ], 200);
         } else {
             return response()->json([
