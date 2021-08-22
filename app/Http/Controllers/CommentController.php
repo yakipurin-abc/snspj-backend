@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Rest;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
@@ -14,10 +14,9 @@ class CommentController extends Controller
      */
     public function index(Request $request)
     {
-        $items = Comment::all();
-        $comments = Comment::where('message_id', $request->message_id);
+        $comment = Rest::find('id', $request->id)->get();
         return response()->json([
-            'data' => $items
+            'data' => $comment
         ], 200);
     }
     /**
