@@ -45,7 +45,7 @@ class CommentController extends Controller
     public function show(Comment $comment)
     {
         $comment = Rest::find('id', $comment->id)->get();
-        if ($item) {
+        if ($comment) {
             return response()->json([
                 'data' => $comment
             ], 200);
