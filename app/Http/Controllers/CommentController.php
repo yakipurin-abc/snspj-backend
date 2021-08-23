@@ -12,11 +12,11 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $comment = Rest::find('id', $request->id)->get();
+        $items = Comment::all();
         return response()->json([
-            'data' => $comment
+            'data' => $items
         ], 200);
     }
     /**
@@ -44,10 +44,10 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        $item = Comment::find($comment);
+        $comment = Rest::find('id', $comment->id)->get();
         if ($item) {
             return response()->json([
-                'data' => $item
+                'data' => $comment
             ], 200);
         } else {
             return response()->json([
