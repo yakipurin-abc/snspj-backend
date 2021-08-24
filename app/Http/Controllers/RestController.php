@@ -46,10 +46,14 @@ class RestController extends Controller
      */
     public function show(Rest $rest)
     {
-        $item = Rest::find($rest);
+        $items = Rest::find($rest);
+        foreach($items as $item) {
+            $item->count = $item->likes()->count();
+            $item->save;
+        }
         if ($item) {
             return response()->json([
-                'data' => $item
+                'data' => $items
             ], 200);
         } else {
             return response()->json([

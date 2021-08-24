@@ -47,11 +47,10 @@ class LikeController extends Controller
      */
     public function show(Like $like)
     {
-        $item = Like::find($like);
-
+        $item = Like::where('user_id', $like->user_id)->where('rest_id', $like->rest_id)->count();
         if ($item) {
             return response()->json([
-                'data' => $item
+                'count' => $item
             ], 200);
         } else {
             return response()->json([
