@@ -45,12 +45,20 @@ class LikeController extends Controller
      * @param  \App\Models\Like  $like
      * @return \Illuminate\Http\Response
      */
-    public function show(Like $like)
+    public function show(Request $request)
     {
-        $item = Like::where('user_id', $like->user_id)->where('rest_id', $like->rest_id)->count();
+        $likes = Rest::all();
+        foreach($likes as $like){
+            $item=Like::where(‘user_id’, $request->user_id)->where(‘rest_id’, $like->id)->get();
+            if($item) {
+                $like->isLike=false;
+            }else{
+                $like->isLike=true;
+            }
+        }
         if ($item) {
             return response()->json([
-                'count' => $item
+                'data' => $likes
             ], 200);
         } else {
             return response()->json([
