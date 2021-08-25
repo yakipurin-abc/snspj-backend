@@ -50,7 +50,7 @@ class LikeController extends Controller
         $likes = Rest::all();
         foreach($likes as $like){
             $item=Like::where('user_id', $request->user_id)->where('rest_id', $request->id)->get();
-            if($item) {
+            if($item.isEmpty()) {
                 $like->isLike=false;
             }else{
                 $like->isLike=true;
