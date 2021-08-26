@@ -49,7 +49,7 @@ class LikeController extends Controller
     {
         $likes = Rest::all();
         foreach($likes as $like){
-            $item=Like::where('user_id', $request->user_id)->where('rest_id', $request->id)->get();
+            $item=Like::where('user_id', $request->user_id)->where('rest_id', $like->id)->get();
             if($item->isEmpty()) {
                 $like->isLike=false;
             }else{
@@ -57,7 +57,8 @@ class LikeController extends Controller
             }
         }
         return response()->json([
-            'data' => $likes
+            'data' => $likes,
+            'item' => $item
         ], 200);
     }
     /**
