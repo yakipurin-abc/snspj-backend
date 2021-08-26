@@ -50,21 +50,15 @@ class LikeController extends Controller
         $likes = Rest::all();
         foreach($likes as $like){
             $item=Like::where('user_id', $request->user_id)->where('rest_id', $request->id)->get();
-            if($item.isEmpty()) {
+            if($item->isEmpty()) {
                 $like->isLike=false;
             }else{
                 $like->isLike=true;
             }
         }
-        if ($item) {
-            return response()->json([
-                'data' => $likes
-            ], 200);
-        } else {
-            return response()->json([
-                'message' => 'Not found',
-            ], 404);
-        }
+        return response()->json([
+            'data' => $likes
+        ], 200);
     }
     /**
      * Update the specified resource in storage.
