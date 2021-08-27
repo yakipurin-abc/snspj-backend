@@ -46,7 +46,7 @@ class LikeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
-    {
+    {   
         $likes = Rest::all();
         foreach($likes as $like){
             $item=Like::where('user_id', $request->user_id)->where('rest_id', $like->id)->get();

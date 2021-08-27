@@ -30,7 +30,7 @@ class CommentController extends Controller
         $item = Comment::create([
             'user'=> $request['user'],
             'comment'=> $request['comment'],
-            'message_id'=> $request['message_id'],
+            'rest_id'=> $request['rest_id'],
         ]);
         return response()->json([
             'data' => $item,
@@ -42,9 +42,9 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show(Request $request)
     {
-        $items = Comment::where('message_id', $comment->message_id)->get();
+        $items = Comment::where('rest_id', $request->rest_id)->get();
         if ($items) {
             return response()->json([
                 'comments' => $items
@@ -67,20 +67,20 @@ class CommentController extends Controller
         $update = [
             'comment' => $request->comment,
             'user' => $request->user,
-            'message_id' => $request->message_id,
+            'rest_id' => $request->rest_id,
         ];
         $item = Comment::where('id', $comment->id)->update($update);
         if ($item) {
             return response()->json([
                 'comment' => 'Updated successfully',
                 'user' => 'Updated successfully',
-                'message_id' => 'Updated successfully',
+                'rest_id' => 'Updated successfully',
             ], 200);
         } else {
             return response()->json([
                 'comment' => 'Not found',
                 'user' => 'Not found',
-                'message_id' => 'Not found',
+                'erst_id' => 'Not found',
             ], 404);
         }
     }
@@ -97,13 +97,13 @@ class CommentController extends Controller
             return response()->json([
                 'comment' => 'Updated successfully',
                 'user' => 'Updated successfully',
-                'message_id' => 'Updated successfully',
+                'rest_id' => 'Updated successfully',
             ], 200);
         } else {
             return response()->json([
                 'comment' => 'Not found',
                 'user' => 'Not found',
-                'message_id' => 'Not found',
+                'rest_id' => 'Not found',
             ], 404);
         }
     }
