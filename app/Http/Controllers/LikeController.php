@@ -27,7 +27,7 @@ class LikeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-       public function store(Request $request)
+        public function store(Request $request)
     {
         $item = Like::create($request->all());
         $rests = Rest::all();
@@ -60,7 +60,8 @@ class LikeController extends Controller
         }
         return response()->json([
             'data' => $likes,
-            'item' => $item
+            'item' => $item,
+
         ], 200);
     }
     /**
