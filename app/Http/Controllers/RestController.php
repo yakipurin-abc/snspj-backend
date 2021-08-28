@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Like;
 use App\Models\Rest;
 use Illuminate\Http\Request;
 
@@ -50,6 +50,12 @@ class RestController extends Controller
         foreach($items as $item) {
             $item->count = $item->likes()->count();
             $item->save;
+            $like=Like::where('user_id', $rest->user_id)->where('rest_id', $item->id)->get();
+            if($like->isEmpty()) {
+                $item->isLike=false;
+            }else{
+                $item->isLike=true;
+            }
         }
         if ($item) {
             return response()->json([
