@@ -31,7 +31,7 @@ class RestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,)
     {
         $item = Rest::create($request->all());
         return response()->json([
@@ -44,27 +44,25 @@ class RestController extends Controller
      * @param  \App\Models\Rest  $rest
      * @return \Illuminate\Http\Response
      */
-    public function show(Rest $rest)
+    public function show(Request $request, Rest $rest)
     {
         $items = Rest::find($rest);
         foreach($items as $item) {
             $item->count = $item->likes()->count();
             $item->save;
-            $like=Like::where('user_id', $rest->user_id)->where('rest_id', $item->id)->get();
+            $like=Like::where('user_id', $request->user_id)->where('rest_id', $item->id)->get();
             if($like->isEmpty()) {
                 $item->isLike=false;
             }else{
                 $item->isLike=true;
             }
         }
+        $aaa = $request->user_id;
         if ($item) {
             return response()->json([
-                'data' => $items
+                'data' => $items,
+                'aaa' => $aaa
             ], 200);
-        } else {
-            return response()->json([
-                'message' => 'Not found',
-            ], 404);
         }
     }
     /**
